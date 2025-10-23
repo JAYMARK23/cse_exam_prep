@@ -1,0 +1,1 @@
+Migrations folder placeholder. We'll add Knex migration files here later.
