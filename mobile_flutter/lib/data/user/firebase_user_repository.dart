@@ -16,13 +16,26 @@ class FirebaseUserRepository implements UserRepository {
   FirebaseUserRepository(this._auth, this._firestore);
 
   @override
-  Future<Either<Failure, User>> register({required String name, required String email, required String password, required UserRole role}) async {
+  Future<Either<Failure, User>> register({
+    required String name,
+    required String email,
+    required String password,
+    required UserRole role,
+  }) async {
     try {
-      final credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      final fbUser = credential.user;
-      if (fbUser == null) return Left(const DataFailure('Failed to create user'));
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final fb.User? fbUser = credential.user;
+      if (fbUser == null) return Left(DataFailure('Failed to create user'));
 
-      final userModel = UserModel(id: fbUser.uid, name: name, email: email, role: role);
+      final userModel = UserModel(
+        id: fbUser.uid,
+        name: name,
+        email: email,
+        role: role,
+      );
       await _firestore.collection('users').doc(fbUser.uid).set(userModel.toMap());
       return Right(userModel);
     } on fb.FirebaseAuthException catch (e) {
@@ -33,21 +46,33 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, User>> login({required String email, required String password}) async {
+  Future<Either<Failure, User>> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      final fbUser = credential.user;
-      if (fbUser == null) return Left(const DataFailure('Failed to sign in'));
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final fb.User? fbUser = credential.user;
+      if (fbUser == null) return Left(DataFailure('Failed to sign in'));
 
       final snapshot = await _firestore.collection('users').doc(fbUser.uid).get();
       if (!snapshot.exists) {
-        // create minimal profile
-        final userModel = UserModel(id: fbUser.uid, name: fbUser.displayName ?? '', email: email, role: UserRole.staff);
+        final userModel = UserModel(
+          id: fbUser.uid,
+          name: fbUser.displayName ?? '',
+          email: email,
+          role: UserRole.staff,
+        );
         await _firestore.collection('users').doc(fbUser.uid).set(userModel.toMap());
         return Right(userModel);
       }
 
-      final userModel = UserModel.fromMap(snapshot.data()!..['id'] = fbUser.uid);
+      final map = snapshot.data()!;
+      map['id'] = fbUser.uid;
+      final userModel = UserModel.fromMap(map);
       return Right(userModel);
     } on fb.FirebaseAuthException catch (e) {
       return Left(DataFailure(e.message ?? 'Auth error'));
@@ -60,7 +85,7 @@ class FirebaseUserRepository implements UserRepository {
   Future<Either<Failure, void>> logout() async {
     try {
       await _auth.signOut();
-      return const Right(null);
+      return Right(null);
     } catch (e) {
       return Left(DataFailure(e.toString()));
     }
@@ -69,10 +94,12 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<Either<Failure, User>> getCurrentUser() async {
     try {
-      final fbUser = _auth.currentUser;
-      if (fbUser == null) return Left(const DataFailure('No user logged in'));
+      final fb.User? fbUser = _auth.currentUser;
+      if (fbUser == null) return Left(DataFailure('No user logged in'));
+
       final snapshot = await _firestore.collection('users').doc(fbUser.uid).get();
-      if (!snapshot.exists) return Left(const DataFailure('No profile found'));
+      if (!snapshot.exists) return Left(DataFailure('No profile found'));
+
       final map = snapshot.data()!;
       map['id'] = fbUser.uid;
       final userModel = UserModel.fromMap(map);
@@ -83,7 +110,13 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, User>> updateProfile({required String userId, String? name, String? phone, String? avatarUrl, UserRole? role}) async {
+  Future<Either<Failure, User>> updateProfile({
+    required String userId,
+    String? name,
+    String? phone,
+    String? avatarUrl,
+    UserRole? role,
+  }) async {
     try {
       final updates = <String, dynamic>{};
       if (name != null) updates['name'] = name;

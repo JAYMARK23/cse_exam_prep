@@ -1,5 +1,3 @@
-import 'package:equatable/equatable.dart';
-
 /// Roles used in MVP: Owner (store owner) and Staff (store employee)
 enum UserRole { owner, staff }
 
