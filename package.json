@@ -1,0 +1,21 @@
+{
+  "name": "cse_exam_prep",
+  "version": "1.0.0",
+  "description": "A Low Stock Alert Mobile App for Small Businesses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JAYMARK23/cse_exam_prep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JAYMARK23/cse_exam_prep/issues"
+  },
+  "homepage": "https://github.com/JAYMARK23/cse_exam_prep#readme"
+}

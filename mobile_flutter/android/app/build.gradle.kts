@@ -23,7 +23,7 @@ android {
         // Set the Application ID to match Firebase package name
         applicationId = "com.restocknroll.mobile"
         // Ensure minSdk is at least 21 for Firebase
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

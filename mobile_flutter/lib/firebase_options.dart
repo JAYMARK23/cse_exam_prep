@@ -2,7 +2,8 @@
 // Replace with a proper generated file by running `flutterfire configure`.
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform;
 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
@@ -10,7 +11,8 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       default:
-        throw UnsupportedError('DefaultFirebaseOptions are not supported for this platform. Run `flutterfire configure` to generate platform options.');
+        throw UnsupportedError(
+            'DefaultFirebaseOptions are not supported for this platform. Run `flutterfire configure` to generate platform options.');
     }
   }
 
