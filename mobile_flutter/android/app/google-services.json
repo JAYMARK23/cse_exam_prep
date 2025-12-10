@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "709825500142",
+    "project_id": "exam-8a788",
+    "storage_bucket": "exam-8a788.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709825500142:android:e62f8d5783bf2b356234ff",
+        "android_client_info": {
+          "package_name": "com.restocknroll.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ8axane09hg42Tf5JbWhWRRUzWn7qm-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
