@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../core/failure.dart';
+
 import '../entities/product.dart';
+import '../../core/failure.dart';
 
 abstract class ProductRepository {
   Future<Either<Failure, List<Product>>> getProducts();
@@ -8,5 +9,6 @@ abstract class ProductRepository {
   Future<Either<Failure, Product>> addProduct(Product product);
   Future<Either<Failure, Product>> updateProduct(Product product);
   Future<Either<Failure, Unit>> deleteProduct(String id);
-  Future<Either<Failure, Product>> setReorderThreshold(String productId, int threshold);
+  Future<Either<Failure, Product>> setReorderThreshold(
+      String productId, int threshold);
 }

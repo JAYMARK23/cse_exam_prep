@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
+import 'injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Initialize dependency injection
+  sl.init();
+
   runApp(const MyApp());
 }
 
@@ -87,10 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
         'createdAt': FieldValue.serverTimestamp(),
       });
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Created product ${docRef.id}')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Created product ${docRef.id}')));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create product: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to create product: $e')));
     }
   }
 
