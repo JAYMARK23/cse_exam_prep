@@ -69,4 +69,30 @@ class ProductModel extends Product {
     }
     return map;
   }
+
+  ProductModel copyWith({
+    String? id,
+    String? name,
+    String? sku,
+    String? barcode,
+    String? category,
+    int? reorderThreshold,
+    String? supplierId,
+    String? imageUrl,
+    String? notes,
+    DateTime? createdAt,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      sku: sku ?? this.sku,
+      barcode: barcode ?? this.barcode,
+      category: category ?? this.category,
+      reorderThreshold: reorderThreshold ?? this.reorderThreshold,
+      supplierId: supplierId ?? this.supplierId,
+      imageUrl: imageUrl ?? this.imageUrl,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
