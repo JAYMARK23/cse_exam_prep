@@ -62,7 +62,8 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, Product>> setReorderThreshold(String productId, int threshold) async {
+  Future<Either<Failure, Product>> setReorderThreshold(
+      String productId, int threshold) async {
     try {
       final model = await remote.setReorderThreshold(productId, threshold);
       return Right(model);

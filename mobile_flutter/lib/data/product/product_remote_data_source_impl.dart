@@ -59,7 +59,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<ProductModel> setReorderThreshold(String productId, int threshold) async {
+  Future<ProductModel> setReorderThreshold(
+      String productId, int threshold) async {
     final docRef = _col.doc(productId);
     await docRef.update({'reorderThreshold': threshold});
     final snapshot = await docRef.get();
