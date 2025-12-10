@@ -9,21 +9,28 @@ class UserModel extends User {
     required UserRole role,
     String? phone,
     String? avatarUrl,
-  }) : super(id: id, name: name, email: email, role: role, phone: phone, avatarUrl: avatarUrl);
+  }) : super(
+          id: id,
+          name: name,
+          email: email,
+          role: role,
+          phone: phone,
+          avatarUrl: avatarUrl,
+        );
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      role: UserRoleX.fromString(map['role'] as String),
+      id: (map['id'] ?? map['uid'] ?? '') as String,
+      name: (map['name'] ?? '') as String,
+      email: (map['email'] ?? '') as String,
+      role: UserRoleX.fromString((map['role'] ?? 'staff') as String),
       phone: map['phone'] as String?,
       avatarUrl: map['avatarUrl'] as String?,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = <String, dynamic>{
       'id': id,
       'name': name,
       'email': email,
@@ -31,5 +38,6 @@ class UserModel extends User {
       'phone': phone,
       'avatarUrl': avatarUrl,
     };
+    return map;
   }
 }
