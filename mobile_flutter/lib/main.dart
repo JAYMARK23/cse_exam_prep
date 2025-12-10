@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -70,6 +72,28 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _createTestProduct() async {
+    try {
+      final col = FirebaseFirestore.instance.collection('products');
+      final docRef = await col.add({
+        'name': 'Test Product',
+        'sku': 'TEST-001',
+        'barcode': '000000',
+        'category': 'Test',
+        'reorderThreshold': 5,
+        'supplierId': null,
+        'imageUrl': null,
+        'notes': 'Created by smoke test',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Created product ${docRef.id}')));
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create product: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -111,6 +135,11 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _createTestProduct,
+              child: const Text('Create test product'),
             ),
           ],
         ),
