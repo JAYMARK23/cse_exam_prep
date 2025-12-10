@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../lib/data/product/product_model.dart';
 import '../lib/domain/product/entities/product.dart';

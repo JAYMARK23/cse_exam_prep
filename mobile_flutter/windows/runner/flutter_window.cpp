@@ -2,6 +2,7 @@
 
 #include <optional>
 
+#include <flutter/flutter_view_controller.h>
 #include "flutter/generated_plugin_registrant.h"
 
 FlutterWindow::FlutterWindow(const flutter::DartProject& project)
